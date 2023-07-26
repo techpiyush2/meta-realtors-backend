@@ -1,0 +1,24 @@
+# Database, Server and config files
+# config*
+
+# Development data
+dev-data*
+
+# Node modules
+node_modules*
+
+# Packages lock files
+package-lock.json
+
+# vs code files
+.vscode*
+.vscode/launch.json
+
+# Code formating
+.prettierrc
+
+# Cache files
+.cache
+
+# databse backup
+dump*
