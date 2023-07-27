@@ -17,12 +17,6 @@ exports.blogValidation = Joi.object({
   description: Joi.string()
     .required()
     .messages({ "any.required": `${constants.blogMsg.descReq}` }),
-  category: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.blogMsg.categoryReq}` }),
-  permalink: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.blogMsg.permalinkReq}` }),
   metaDescription: Joi.string()
     .required()
     .messages({ "any.required": `${constants.blogMsg.metaDescription}` }),
@@ -149,33 +143,13 @@ exports.aboutusValidation = Joi.object({
 });
 
 exports.usersValidation = Joi.object({
-  firstName: Joi.string()
+  email: Joi.string()
     .required()
     .messages({ "any.required": `${constants.usersMsg.firstNameReq}` }),
 
-  lastName: Joi.string()
+  password: Joi.string()
     .required()
     .messages({ "any.required": `${constants.usersMsg.lastNameReq}` }),
-
-  address: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.usersMsg.addressReq}` }),
-
-  pincode: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.usersMsg.pincode}` }),
-
-  country: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.usersMsg.country}` }),
-
-  state: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.usersMsg.state}` }),
-
-  image: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.usersMsg.imageReq}` }),
 });
 
 //career validation

@@ -2,7 +2,6 @@ module.exports = function (express) {
   const router = express.Router();
   require("./modules/aboutus/aboutus_routes")(router);
   require("./modules/blog/blog_routes")(router);
-  require("./modules/blogCategory/blogCategory_routes")(router);
   require("./modules/skills/skills_routes")(router);
   require("./modules/technology/technology_routes")(router);
   require("./modules/services/services_routes")(router);

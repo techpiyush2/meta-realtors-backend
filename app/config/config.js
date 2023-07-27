@@ -2,7 +2,7 @@
 
 const config = {
   local: {
-    port: 4000,
+    port: 5000,
     env: "prod",
     email_port: 465,
     db: {

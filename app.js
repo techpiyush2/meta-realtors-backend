@@ -8,10 +8,6 @@ const path = require("path"),
   fileUpload = require("express-fileupload");
 
 
-var https = require("https");
-var fs = require("fs");
-
-
 global._session = require("express-session");
 global.__rootRequire = function (relpath) {
 
@@ -98,15 +94,7 @@ app.use("/api/v1", require("./app/api/v1/routes")(express));
 
 const port = process.env.PORT || config.port;
 
-// const server = app.listen(port, () => {});
 
-var server =  '';
-
-/** Server config  SOCKET*/
-
-server = require("https").createServer(app);
-
-
-console.log(`Server running on port ${port} ...`);
-
-server.listen(port);
+app.listen(port,()=>{
+   console.log('Server running on port',port);
+})

@@ -5,6 +5,7 @@ module.exports = function (router) {
   // CREATE
   router.post("/users/create", users.addUsers);
   router.post("/users/login",users.login);
+  router.post("/users/signUp",users.signUp);
   router.post("/users/forget-password",users.forgetPassword);
   router.post("/users/change-password",users.changePassword);
   router.post("/users/uploadImage", middlewares.uploadImage);
@@ -15,3 +16,5 @@ module.exports = function (router) {
   router.post("/users/changeStatus", users.changeStatus);
   return router;
 };
+
+

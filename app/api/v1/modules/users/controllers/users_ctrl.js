@@ -24,6 +24,8 @@ const { mongoObjectId } = require("../../../../../lib/common_query");
 
 
 
+
+
 exports.addUsers = catchAsync(async (req, res) => {
   let insertObj = {
     email: req.body.email,
@@ -48,7 +50,28 @@ exports.addUsers = catchAsync(async (req, res) => {
   else return res.json(internalError());
 });
 
+exports.signUp = catchAsync(async (req, res) => {
+  let insertObj = {
+    email: req.body.email,
+    password: req.body.password,
+  };
 
+  const alreadyExist = await Users.findOne({email : insertObj.email});
+  
+  if(alreadyExist) return res.json(
+    Response(constants.statusCode.alreadyExist, constants.usersMsg.emailExist)
+  );
+  
+  await usersValidation.validateAsync(insertObj);
+
+  const finalResult = await Users.create(insertObj);
+
+  if (finalResult)
+    return res.json(
+      Response(constants.statusCode.ok, constants.usersMsg.signUp)
+    );
+  else return res.json(internalError());
+});
 
 exports.login = catchAsync(async (req, res) => {
 
@@ -65,37 +88,41 @@ exports.login = catchAsync(async (req, res) => {
 
   const user = await Users.findOne({ email: req.body.email })
 
+  const params = {
+    userId: user._id,
+  };
+  
   if (!user) {
     return res.json(
       Response(constants.statusCode.unauth, constants.usersMsg.userNotFound)
     );
   } else {
-    const passMatch = utilities.matchPassword(req.body.password, user.password)
-
-    const params = {
-      userId: user._id,
-    };
-
-    if (passMatch) {
-      const expirationDuration = 60 * 60 * 24 * 10;
-      // token expire date is 10 days
-
-      const jwtToken = jwt.sign(params, constants.cryptoConfig.secret, {
-        expiresIn: expirationDuration,
-      });
-      const finalData = {
-        token: jwtToken,
-        userInfo: user
+    user.comparePassword(req.body.password, async function (err, isMatch) {
+      if (err) return res.json(internalError())
+      if (isMatch) {
+        const expirationDuration = 60 * 60 * 24 * 10;
+        // token expire date is 10 days
+  
+        const jwtToken = jwt.sign(params, constants.cryptoConfig.secret, {
+          expiresIn: expirationDuration,
+        });
+        const finalData = {
+          token: jwtToken,
+          userInfo: user
+        }
+        return res.json(
+          Response(constants.statusCode.ok, constants.usersMsg.loginSucess, finalData)
+        );
+  
+      } else {
+        return res.json(
+          Response(constants.statusCode.unauth, constants.usersMsg.invalidPass)
+        );
       }
-      return res.json(
-        Response(constants.statusCode.ok, constants.usersMsg.loginSucess, finalData)
-      );
+    })
 
-    } else {
-      return res.json(
-        Response(constants.statusCode.unauth, constants.usersMsg.invalidPass)
-      );
-    }
+
+
   }
 })
 

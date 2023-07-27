@@ -58,16 +58,16 @@ exports.settings = {
 };
 
 exports.directoryPath = {
-  BLOG: "../zimo-backend/upload/blogs/",
+  BLOG: "../meta-realtors-backend/upload/blogs/",
   // PATH FOR SERVICES
-  SERVICES: "../zimo-backend/upload/services/",
-  RESUMES: "../zimo-backend/upload/resume/",
-  TECHNOLOGY: "../zimo-backend/upload/technology/",
-  INDUSTRY: "../zimo-backend/upload/industries/",
-  ATTENDENCE: "../zimo-backend/upload/attendence/",
-  USER: "../zimo-backend/upload/user/",
-  TESTIMONIAL: "../zimo-backend/upload/testimonial/",
-  USERTESTIMONIAL: "../zimo-backend/upload/userTestimonial/",
+  SERVICES: "../meta-realtors-backend/upload/services/",
+  RESUMES: "../meta-realtors-backend/upload/resume/",
+  TECHNOLOGY: "../meta-realtors-backend/upload/technology/",
+  INDUSTRY: "../meta-realtors-backend/upload/industries/",
+  ATTENDENCE: "../meta-realtors-backend/upload/attendence/",
+  USER: "../meta-realtors-backend/upload/user/",
+  TESTIMONIAL: "../meta-realtors-backend/upload/testimonial/",
+  USERTESTIMONIAL: "../meta-realtors-backend/upload/userTestimonial/",
 };
 
 exports.cryptoConfig = {
@@ -192,7 +192,10 @@ exports.aboutusMsg = {
 
 exports.usersMsg = {
   idReq: "Id is required",
+  signUp : "SignUp successfully",
+  login : "Login successfully",
   emailReq: "Please enter email",
+  emailExist: "Email already exists",
   userName: "Please enter user name",
   passwordReq: "Please enter password",
   usernameReq: "Please enter users title",

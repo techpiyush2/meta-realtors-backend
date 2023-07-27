@@ -13,9 +13,7 @@ const { Response, internalError } = require("../../../../../lib/response"),
 const uuid = require("uuid");
 
 
-
 exports.addBlog = catchAsync(async (req, res) => {
-
 
   let isExist = await Blog.findOne({ title: req.body.title })
 
@@ -29,22 +27,11 @@ exports.addBlog = catchAsync(async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     image: req.body.image,
-    category: req.body.category,
-    permalink : req.body.permalink,
     metaDescription : req.body.metaDescription,
     type : req.body.type
   };
 
   await blogValidation.validateAsync(insertObj);
-
-  const { createdby_id } = req.body;
-
-  if (!createdby_id)
-    return res.json(
-      Response(constants.statusCode.unauth, constants.messages.user_idReq)
-    );
-
-  insertObj.createdby_id = createdby_id;
 
   const finalResult = await Blog.create(insertObj);
 
@@ -72,8 +59,6 @@ exports.blogList = catchAsync(async (req, res) => {
     condition.isDeleted = req.body.isDeleted == "true" ? true : false;
   else condition.isDeleted = false;
 
-  // //used to match the category
-  if (req.body.category) condition.category = mongoose.Types.ObjectId(req.body.category);
 
   if (req.body.type) condition.type = req.body.type;
 
@@ -104,7 +89,6 @@ exports.blogList = catchAsync(async (req, res) => {
             $project: {
               title: "$title",
               image: "$image",
-              category: "$category",
               description: "$description",
               isActive: "$isActive",
               isDeleted: "$isDeleted",
@@ -149,8 +133,6 @@ exports.updateData = catchAsync(async (req, res, next) => {
     title: req.body.title,
     description: req.body.description,
     image: req.body.image,
-    category: req.body.category,
-    permalink : req.body.permalink,
     metaDescription : req.body.metaDescription,
     type : req.body.type
   };
@@ -164,7 +146,6 @@ exports.updateData = catchAsync(async (req, res, next) => {
       Response(constants.statusCode.unauth, constants.blogMsg.idReq)
     );
 
-  // const updateData = req.body.blogData
 
   const finalResult = await Blog.findByIdAndUpdate(blogId, updateObj, {
     new: true,
@@ -179,9 +160,7 @@ exports.updateData = catchAsync(async (req, res, next) => {
       )
     );
   else return res.json(internalError());
-  // const data = { model: Blog, id: blogId, updateObj }
 
-  // update(req, res, next, data)
 });
 
 exports.details = catchAsync(async (req, res) => {
@@ -215,12 +194,12 @@ exports.uploadImage = async (req, res, next) => {
   if (req.files == null || req.files == undefined) {
     return res.json(Response(constants.statusCode.unauth, constants.messages.uploadImageReq));
   }
-
+    
   const randomStr = uuid.v4(),
     currentDate = Date.now(),
     randomName = randomStr + "-" + currentDate;
 
-  const size = req.files.file.size,
+    const size = req.files.file.size,
     imageBuffer = req.files.file.data,
     mimetype = req.files.file.mimetype,
     imgOriginalName = req.files.file.name;
@@ -244,11 +223,6 @@ exports.uploadImage = async (req, res, next) => {
           if (err) {
             return res.json(Response(constants.statusCode.unauth, err));
           }
-          const thumbpath = UPLOADIMAGE + "thumbnail_348X280/" + randomName + "_" + imgOriginalName;
-          const thumbpath1 = UPLOADIMAGE + "thumbnail_1100X685/" + randomName + "_" + imgOriginalName;
-
-          await sharp(imageBuffer).resize(348, 280).toFile(thumbpath);
-          await sharp(imageBuffer).resize(1100, 685).toFile(thumbpath1);
 
           return res.json(
             Response(

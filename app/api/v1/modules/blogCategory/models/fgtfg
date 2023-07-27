@@ -1,3 +1,0 @@
-app.use("/api/nisha", (req, res) => {
-  return res.json({ code: 200, message: "api work" });
-});
