@@ -69,22 +69,50 @@ exports.industriesValidation = Joi.object({
 });
 
 //Technology
-exports.technologyValidation = Joi.object({
+exports.propertyValidation = Joi.object({
   title: Joi.string()
     .required()
-    .messages({ "any.required": `${constants.technologyMsg.titleReq}` }),
-  display: Joi.number()
+    .messages({ "any.required": `${constants.propertyMsg.titleReq}` }),
+    description: Joi.string()
     .required()
-    .messages({ "any.required": `${constants.messages.displayOrderReq}` }),
-  type: Joi.string()
+    .messages({ "any.required": `${constants.propertyMsg.descReq}` }),
+    images: Joi.array()
     .required()
-    .messages({ "any.required": `${constants.technologyMsg.type}` }),
-  description: Joi.string()
+    .messages({ "any.required": `${constants.propertyMsg.imgReq}` }),
+    type:  Joi.string()
     .required()
-    .messages({ "any.required": `${constants.technologyMsg.descReq}` }),
-  image: Joi.string()
+    .valid("PLOT", "FLAT", "VILLA", "KOTHI")
+    .messages({ "any.required": `${constants.propertyMsg.type}` }),
+    bedrooms: Joi.number()
     .required()
-    .messages({ "any.required": `${constants.technologyMsg.imageReq}` })
+    .messages({ "any.required": `${constants.propertyMsg.bathrooms}` }),
+    bathrooms: Joi.number()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.bathrooms}` }),
+    size: Joi.number()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.size}` }),
+    price: Joi.number()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.price}` }),
+    parking: Joi.boolean()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.parking}` }),
+    parkOrGarden: Joi.boolean()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.parkOrGarden}` }),
+    Features:  Joi.array()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.Features}` }),
+    address: Joi.string()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.address}` }),
+    contactNo: Joi.number()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.contactNo}` }),
+    ownerName: Joi.string()
+    .required()
+    .messages({ "any.required": `${constants.propertyMsg.ownerName}` }),
 });
 
 // services

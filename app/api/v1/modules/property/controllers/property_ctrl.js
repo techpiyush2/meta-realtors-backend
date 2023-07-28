@@ -1,34 +1,42 @@
 ﻿﻿"use strict";
 
 const { Response, internalError } = require("../../../../../lib/response"),
-  { technologyValidation } = require("./../../../../../lib/joiSchema"),
+  { propertyValidation } = require("../../../../../lib/joiSchema"),
   catchAsync = require("../../../../../lib/catchAsync"),
   toggleStatus = require("../../factory/changeStatus"),
   constants = require("../../../../../lib/constants"),
   softDelete = require("../../factory/softDelete"),
-  Technology = require("../models/technology_model"),
+  Property = require("../models/property_model"),
   fs = require("fs"),
   uuid = require("uuid");
 
 
-exports.addTechnology = catchAsync(async (req, res) => {
+exports.addProperty = catchAsync(async (req, res) => {
   let insertObj = {
     title: req.body.title,
-    description: req.body.description,
-    image: req.body.image,
-    type : req.body.type,
-    display : req.body.display
+    description:  req.body.description,
+    images:  req.body.images,
+    type:  req.body.type,
+    bedrooms:  req.body.bedrooms,
+    bathrooms: req.body.bathrooms,
+    size:  req.body.size,
+    price:  req.body.price,
+    parking:  req.body.parking,
+    parkOrGarden:  req.body.parkOrGarden,
+    Features:  req.body.Features,
+    address: req.body.address,
+    contactNo:  req.body.contactNo,
+    ownerName:  req.body.ownerName,
   };
 
-  // to prevent dublicacy{technologyres shd be same}
-  const technologyres = await Technology.findOne({ title: req.body.title });
+  const propertyExist = await Property.findOne({ title: req.body.title });
 
-  if (technologyres)
+  if (propertyExist)
     return res.json(
-      Response(constants.statusCode.unauth, constants.technologyMsg.exist)
+      Response(constants.statusCode.unauth, constants.propertyMsg.exist)
     );
 
-  await technologyValidation.validateAsync(insertObj);
+  await propertyValidation.validateAsync(insertObj);
 
   const { createdby_id } = req.body;
 
@@ -42,11 +50,11 @@ exports.addTechnology = catchAsync(async (req, res) => {
 
   insertObj.createdby_id = createdby_id;
 
-  const finalResult = await Technology.create(insertObj);
+  const finalResult = await Property.create(insertObj);
 
   if (finalResult)
     return res.json(
-      Response(constants.statusCode.ok, constants.technologyMsg.addSuccess)
+      Response(constants.statusCode.ok, constants.propertyMsg.addSuccess)
     );
   else return res.json(internalError());
 });
@@ -98,7 +106,7 @@ exports.technologyList = catchAsync(async (req, res) => {
 console.log('sort->', sortObject)
 
     // return
-  const data = await Technology.aggregate([
+  const data = await Property.aggregate([
     { $match: condition },
     {
       $facet: {
@@ -110,18 +118,19 @@ console.log('sort->', sortObject)
               isActive: "$isActive",
               isDeleted: "$isDeleted",
               image : "$image",
-              type : "$type",
               description:"$description",
-              display:"$display"
-              // technologyyr: {
-              //   $dateToString: { format: "%Y", date: "$createdAt" },
-              // },
-              // technologymnt: {
-              //   $dateToString: { format: "%M", date: "$createdAt" },
-              // },
-              // technologydat: {
-              //   $dateToString: { format: "%d", date: "$createdAt" },
-              // },
+              images: "$images" ,
+              type: "$type" ,
+              bedrooms: "$bedrooms" ,
+              bathrooms: "$bathrooms",
+              size: "$size",
+              price:  "$price",
+              parking: "$parking",
+              parkOrGarden:"$parkOrGarden",
+              Features: "$Features" ,
+              address: "$address",
+              contactNo: "$contactNo" ,
+              ownerName: "$ownerName",
             },
           },
           { $sort: sortObject },
@@ -164,18 +173,18 @@ exports.updateData = catchAsync(async (req, res, next) => {
 
   console.log( 'updateObj=>>',updateObj )
 
-  await technologyValidation.validateAsync(updateObj);
+  await propertyValidation.validateAsync(updateObj);
 
   const { technologyId } = req.body;
 
   if (!technologyId)
     return res.json(
-      Response(constants.statusCode.unauth, constants.technologyMsg.idReq)
+      Response(constants.statusCode.unauth, constants.propertyMsg.idReq)
     );
 
   // const updateData = req.body.technologyData
 
-  const finalResult = await Technology.findByIdAndUpdate(
+  const finalResult = await Property.findByIdAndUpdate(
     technologyId,
     updateObj,
     {
@@ -204,10 +213,10 @@ exports.details = catchAsync(async (req, res) => {
 
   if (!technologyId)
     return res.json(
-      Response(constants.statusCode.unauth, constants.technologyMsg.idReq)
+      Response(constants.statusCode.unauth, constants.propertyMsg.idReq)
     );
 
-  const finalResult = await Technology.findById(technologyId);
+  const finalResult = await Property.findById(technologyId);
 
   if (finalResult)
     return res.json(
@@ -261,6 +270,6 @@ exports.details = catchAsync(async (req, res) => {
 
 
 
-exports.changeStatus = toggleStatus(Technology);
+exports.changeStatus = toggleStatus(Property);
 
-exports.deleteTechnology = softDelete(Technology);
+exports.deleteTechnology = softDelete(Property);

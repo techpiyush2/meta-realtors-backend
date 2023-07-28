@@ -3,7 +3,7 @@ module.exports = function (express) {
   require("./modules/aboutus/aboutus_routes")(router);
   require("./modules/blog/blog_routes")(router);
   require("./modules/skills/skills_routes")(router);
-  require("./modules/technology/technology_routes")(router);
+  require("./modules/property/property_routes")(router);
   require("./modules/services/services_routes")(router);
   require("./modules/industries/industries_routes")(router);
   require("./modules/category/category_routes")(router);

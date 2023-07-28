@@ -127,18 +127,25 @@ exports.doctorDocs = {
   uploadPath: "../zimo-backend/upload/doctorDocs/",
   typeMsg: "You can upload only jpg, png, pdf",
 };
-exports.technologyMsg = {
-  idReq: "Please enter technology id",
-  titleReq: "Please enter technology title",
-  addSuccess: "Technology added Successfully",
-  exist: "already in use",
-  //imageReq: "Please upload image for technology",
-  descReq: "Please enter description of technology",
-  type: "please enter type",
+exports.propertyMsg = {
+  idReq: "Please enter property id",
+  titleReq: "Please enter property title",
+  addSuccess: "Property added Successfully",
+  exist: "Property already exists",
+  imgReq: "Please upload image for property",
+  descReq: "Please enter description ",
+  bedrooms: "Please enter bedrooms",
+  bathrooms: "Please enter bathrooms",
+  size: "Please enter size",
+  price: "Please enter price",
+  parking: "Please select parking",
+  parkOrGarden : "Please select Park Or Garden",
+  Features: "Please enter Features",
+  address: "Please enter address",
+  contactNo: "Please enter contactNo",
+  ownerName :  "Please enter ownerName",
 };
-// exports.directoryPath = {
-//   TECHNOLOGY: "../zimo-backend/upload/technology/",
-// };
+
 
 exports.servicesMsg = {
   idReq: "Please enter id",

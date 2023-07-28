@@ -6,7 +6,6 @@ const { Response, internalError } = require("../../../../../lib/response"),
   toggleStatus = require("../../factory/changeStatus"),
   constants = require("../../../../../lib/constants"),
   softDelete = require("../../factory/softDelete"),
-  mongoose = require("mongoose"),
   fs = require("fs"),
   sharp = require("sharp"),
   Blog = require("../models/blog_model");
