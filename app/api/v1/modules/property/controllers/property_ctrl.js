@@ -59,9 +59,7 @@ exports.addProperty = catchAsync(async (req, res) => {
   else return res.json(internalError());
 });
 
-
-
-exports.technologyList = catchAsync(async (req, res) => {
+exports.propertyList = catchAsync(async (req, res) => {
   const count = req.body.count ? req.body.count : constants.settings.count;
   req.body.page = req.body.page
     ? req.body.page
@@ -69,11 +67,15 @@ exports.technologyList = catchAsync(async (req, res) => {
   const skip = count * (req.body.page - 1);
 
   let condition = {};
-
+   console.log(req.body);
   if (req.body.isActive != "" && req.body.isActive != undefined) {
     condition.isActive = req.body.isActive == "true" ? true : false;
   }
-
+  
+  if(req.body.type){
+    condition.type = { $in: req.body.type };
+  }
+  
   if (req.body.isDeleted)
     condition.isDeleted = req.body.isDeleted == "true" ? true : false;
   else condition.isDeleted = false;
@@ -85,10 +87,6 @@ exports.technologyList = catchAsync(async (req, res) => {
     sortObject = { display: 1 };
   }
 
-  
-  if(req.body.type){
-    condition.type  = req.body.type
-  }
 
   if (req.body.searchText) {
     const searchText = decodeURIComponent(req.body.searchText).replace(
@@ -209,14 +207,14 @@ exports.updateData = catchAsync(async (req, res, next) => {
 
 exports.details = catchAsync(async (req, res) => {
 
-  const { technologyId } = req.body;
+  const { propertyId } = req.body;
 
-  if (!technologyId)
+  if (!propertyId)
     return res.json(
       Response(constants.statusCode.unauth, constants.propertyMsg.idReq)
     );
 
-  const finalResult = await Property.findById(technologyId);
+  const finalResult = await Property.findById(propertyId);
 
   if (finalResult)
     return res.json(
@@ -272,4 +270,4 @@ exports.details = catchAsync(async (req, res) => {
 
 exports.changeStatus = toggleStatus(Property);
 
-exports.deleteTechnology = softDelete(Property);
+exports.deleteProperty = softDelete(Property);

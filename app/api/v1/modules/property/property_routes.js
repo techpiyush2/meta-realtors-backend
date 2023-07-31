@@ -8,12 +8,12 @@
   router.post("/property/deleteImage", middlewares.deleteImage);
 
   // READ
-  router.post("/property/List", property.technologyList);
+  router.post("/property/List", property.propertyList);
   router.post("/property/details", property.details);
 
   // UPDATE AND DELETE
   router.post("/property/updateData", property.updateData);
-  router.post("/property/delete", property.deleteTechnology);
+  router.post("/property/delete", property.deleteProperty);
   router.post("/property/changeStatus", property.changeStatus);
   return router
 }
