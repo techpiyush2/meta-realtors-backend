@@ -110,6 +110,7 @@ console.log('sort->', sortObject)
         aggregatedData: [
           {
             $project: {
+              id : "$_id",
               title: "$title",
               isActive: "$isActive",
               isDeleted: "$isDeleted",

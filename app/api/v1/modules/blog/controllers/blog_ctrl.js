@@ -86,6 +86,7 @@ exports.blogList = catchAsync(async (req, res) => {
         aggregatedData: [
           {
             $project: {
+              id : "$_id",
               title: "$title",
               image: "$image",
               description: "$description",
