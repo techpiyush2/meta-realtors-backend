@@ -87,7 +87,6 @@ exports.propertyList = catchAsync(async (req, res) => {
     sortObject = { display: 1 };
   }
 
-
   if (req.body.searchText) {
     const searchText = decodeURIComponent(req.body.searchText).replace(
       /[[\]{}()*+?,\\^$|#\s]/g,
@@ -99,7 +98,6 @@ exports.propertyList = catchAsync(async (req, res) => {
       { description: new RegExp(searchText, "gi") },
     ];
   }
-
 
 console.log('sort->', sortObject)
 

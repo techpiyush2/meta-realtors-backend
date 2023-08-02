@@ -364,6 +364,7 @@ exports.usersList = catchAsync(async (req, res) => {
         aggregatedData: [
           {
             $project: {
+              id : "$_id",
               email: "$email",
               password: "$password",
               isActive: "$isActive",
