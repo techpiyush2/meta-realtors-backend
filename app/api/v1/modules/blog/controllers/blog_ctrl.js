@@ -26,7 +26,6 @@ exports.addBlog = catchAsync(async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     image: req.body.image,
-    metaDescription : req.body.metaDescription,
     type : req.body.type
   };
 

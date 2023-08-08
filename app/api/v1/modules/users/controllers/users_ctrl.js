@@ -195,6 +195,30 @@ exports.changePassword = catchAsync(async (req, res) => {
 
 })
 
+exports.newUser = catchAsync(async (req, res) => {
+  let insertObj = {
+    email: req.body.email,
+    password: req.body.password,
+  };
+
+  const alreadyExist = await Users.findOne({email : insertObj.email});
+  
+  if(alreadyExist) return res.json(
+    Response(constants.statusCode.alreadyExist, constants.usersMsg.emailExist)
+  );
+  
+  await usersValidation.validateAsync(insertObj);
+
+  const finalResult = await Users.create(insertObj);
+
+  if (finalResult)
+    return res.json(
+      Response(constants.statusCode.ok, constants.usersMsg.added)
+    );
+  else return res.json(internalError());
+});
+
+
 
 exports.forgetPassword = catchAsync(async (req, res) => {
   if (!req.body.email) {

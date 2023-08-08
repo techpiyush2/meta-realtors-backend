@@ -17,9 +17,7 @@ exports.blogValidation = Joi.object({
   description: Joi.string()
     .required()
     .messages({ "any.required": `${constants.blogMsg.descReq}` }),
-  metaDescription: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.blogMsg.metaDescription}` }),
+ 
 });
 
 //blogCategory

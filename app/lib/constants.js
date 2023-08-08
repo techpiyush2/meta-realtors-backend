@@ -222,7 +222,7 @@ exports.usersMsg = {
   invalidUser: "Cannot find your account",
   firstNameReq: "please enter firstname",
   lastNameReq: "please enter lastname",
-
+    added : "User Added Successfully",
   pincode: "please enter pincode",
   country: "please enter country",
   state: "please enter state",

@@ -9,7 +9,6 @@ const blogSchema = new mongoose.Schema(
     image: { type: String, default: null },
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
-    metaDescription : { type : String , default :null },
     type : {  type : String , enum : ['PLOT','FLAT','VILLA','KOTHI']}
   },
   {
