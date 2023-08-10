@@ -60,7 +60,7 @@ exports.settings = {
 exports.directoryPath = {
   BLOG: "../meta-realtors-backend/upload/blogs/",
   // PATH FOR SERVICES
-  SERVICES: "../meta-realtors-backend/upload/services/",
+  PROPERTY: "../meta-realtors-backend/upload/properties/",
   RESUMES: "../meta-realtors-backend/upload/resume/",
   TECHNOLOGY: "../meta-realtors-backend/upload/technology/",
   INDUSTRY: "../meta-realtors-backend/upload/industries/",

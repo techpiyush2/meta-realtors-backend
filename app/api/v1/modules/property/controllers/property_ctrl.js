@@ -265,7 +265,62 @@ exports.details = catchAsync(async (req, res) => {
 //   }
 // };
 
+exports.uploadImage = async (req, res, next) => {
 
+  if (req.files == null || req.files == undefined) {
+    return res.json(Response(constants.statusCode.unauth, constants.messages.uploadImageReq));
+  }
+    
+  const randomStr = uuid.v4(),
+    currentDate = Date.now(),
+    randomName = randomStr + "-" + currentDate;
+
+    const size = req.files.file.size,
+    imageBuffer = req.files.file.data,
+    mimetype = req.files.file.mimetype,
+    imgOriginalName = req.files.file.name;
+
+  if (size >= 5000000) {
+    return res.json(
+      Response(constants.statusCode.unauth, constants.messages.sizeExceeded)
+    );
+  }
+
+  if (mimetype == "image/png" || mimetype == "image/jpeg") {
+    const UPLOADIMAGE = constants.directoryPath.PROPERTY;
+    const db_path = randomName + "_" + imgOriginalName;
+    const uploadLocation = UPLOADIMAGE + randomName + "_" + imgOriginalName;
+
+
+    await fs.writeFile(uploadLocation, imageBuffer, function (imgerr) {
+
+      if (!imgerr) {
+        fs.readFile(uploadLocation, async function (err, data) {
+          if (err) {
+            return res.json(Response(constants.statusCode.unauth, err));
+          }
+
+          return res.json(
+            Response(
+              constants.statusCode.ok,
+              constants.messages.uploadSuccess,
+              {
+                fullPath: uploadLocation,
+                imagePath: db_path,
+              }
+            )
+          );
+
+        })
+      } else {
+        console.log('imgerr=>>>', imgerr)
+      }
+    });
+  } else {
+    return res.json(Response(constants.statusCode.unauth, constants.messages.invalidImageFormat));
+  }
+
+};
 
 exports.changeStatus = toggleStatus(Property);
 
