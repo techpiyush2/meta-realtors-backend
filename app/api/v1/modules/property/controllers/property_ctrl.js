@@ -131,7 +131,7 @@ console.log('sort->', sortObject)
             },
           },
           { $sort: sortObject },
-          { $limit: parseInt(skip) + parseInt(count) },
+          // { $limit: parseInt(skip) + parseInt(count) },
           { $skip: parseInt(skip) },
         ],
       },
@@ -203,7 +203,7 @@ exports.updateData = catchAsync(async (req, res, next) => {
 
   // update(req, res, next, data)
 });
-
+  
 exports.details = catchAsync(async (req, res) => {
 
   const { propertyId } = req.body;
@@ -253,9 +253,9 @@ exports.details = catchAsync(async (req, res) => {
 //     const db_path = randomName + "_" + docOriginalName;
 //     const uploadLocation = UPLOADIMAGE + randomName + "_" + docOriginalName;
 
-//     fs.writeFile(uploadLocation, imageBuffer, function (imgerr) {
-//       if (imgerr) {
-//         return res.json(Response(constants.statusCode.unauth, constants.messages.internalservererror, imgerr));
+//     fs.writeFile(uploadLocation, imageBuffer, function (imgErr) {
+//       if (imgErr) {
+//         return res.json(Response(constants.statusCode.unauth, constants.messages.internalservererror, imgErr));
 //       } else {
 //         return res.json(Response(constants.statusCode.ok, constants.messages.uploadSuccess, { imagePath: db_path, imageName: uploadLocation },));
 //       }
@@ -265,8 +265,8 @@ exports.details = catchAsync(async (req, res) => {
 //   }
 // };
 
-exports.uploadImage = async (req, res, next) => {
 
+exports.uploadImage = async (req, res, next) => {
   if (req.files == null || req.files == undefined) {
     return res.json(Response(constants.statusCode.unauth, constants.messages.uploadImageReq));
   }
@@ -275,51 +275,52 @@ exports.uploadImage = async (req, res, next) => {
     currentDate = Date.now(),
     randomName = randomStr + "-" + currentDate;
 
-    const size = req.files.file.size,
-    imageBuffer = req.files.file.data,
-    mimetype = req.files.file.mimetype,
-    imgOriginalName = req.files.file.name;
-
-  if (size >= 5000000) {
-    return res.json(
-      Response(constants.statusCode.unauth, constants.messages.sizeExceeded)
-    );
-  }
-
-  if (mimetype == "image/png" || mimetype == "image/jpeg") {
-    const UPLOADIMAGE = constants.directoryPath.PROPERTY;
-    const db_path = randomName + "_" + imgOriginalName;
-    const uploadLocation = UPLOADIMAGE + randomName + "_" + imgOriginalName;
-
-
-    await fs.writeFile(uploadLocation, imageBuffer, function (imgerr) {
-
-      if (!imgerr) {
-        fs.readFile(uploadLocation, async function (err, data) {
-          if (err) {
-            return res.json(Response(constants.statusCode.unauth, err));
-          }
-
-          return res.json(
-            Response(
-              constants.statusCode.ok,
-              constants.messages.uploadSuccess,
-              {
-                fullPath: uploadLocation,
-                imagePath: db_path,
-              }
-            )
-          );
-
-        })
-      } else {
-        console.log('imgerr=>>>', imgerr)
-      }
+    let fileToBeSend = []
+    
+    req.files.file.forEach(async(element) => {
+      const size = element.size,
+      imageBuffer = element.data,
+      mimetype = element.mimetype,
+      imgOriginalName = element.name;
+  
+    if (size >= 5000000) {
+      return res.json(
+        Response(constants.statusCode.unauth, constants.messages.sizeExceeded)
+      );
+    }
+  
+    if (mimetype == "image/png" || mimetype == "image/jpeg") {
+      const UPLOADIMAGE = constants.directoryPath.PROPERTY;
+      const db_path = randomName + "_" + imgOriginalName;
+      const uploadLocation = UPLOADIMAGE + randomName + "_" + imgOriginalName;
+  
+        await fileToBeSend.push(db_path)
+        await fs.writeFile(uploadLocation, imageBuffer, function (imgErr) {
+  
+        if (!imgErr) {
+          fs.readFile(uploadLocation, async function (err, data) {
+            if (err) {
+              return res.json(Response(constants.statusCode.unauth, err));
+            }
+            
+          })
+        } else {
+          console.log('imgErr=>>>', imgErr)
+        }
+      });
+    } else {
+      return res.json(Response(constants.statusCode.unauth, constants.messages.invalidImageFormat));
+    }
     });
-  } else {
-    return res.json(Response(constants.statusCode.unauth, constants.messages.invalidImageFormat));
-  }
 
+    return res.json(
+      Response(
+        constants.statusCode.ok,
+        constants.messages.uploadSuccess,
+        fileToBeSend
+      )
+    );
+    
 };
 
 exports.changeStatus = toggleStatus(Property);

@@ -356,9 +356,7 @@ exports.usersList = catchAsync(async (req, res) => {
     condition.isActive = req.body.isActive == "true" ? true : false;
   }
 
-  if (req.body.isDeleted)
-    condition.isDeleted = req.body.isDeleted == "true" ? true : false;
-  else condition.isDeleted = false;
+    condition.isDeleted = false
 
   let sortObject = {};
   if (req.body.sortValue && req.body.sortOrder) {
