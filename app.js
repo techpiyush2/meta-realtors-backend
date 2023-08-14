@@ -6,7 +6,7 @@ const path = require("path"),
   express = require("express"),
   bodyParser = require("body-parser"),
   fileUpload = require("express-fileupload");
-
+  
 
 global._session = require("express-session");
 global.__rootRequire = function (relpath) {
@@ -15,11 +15,11 @@ global.__rootRequire = function (relpath) {
 
 };
 
-process.env.NODE_ENV = process.env.NODE_ENV || "local"; //local server
+
 
 // process.env.NODE_ENV = process.env.NODE_ENV || "prod"; //local server
 
-const config = require("./app/config/config").get(process.env.NODE_ENV);
+require('dotenv').config()
 
 const app = express();
 
@@ -34,9 +34,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-if (process.env.NODE_ENV === "local") {
-  app.use(morgan("dev"));
-};
+
 
 app.use("/upload", express.static(path.join(__dirname, "./upload")));
 
@@ -77,7 +75,6 @@ app.use(
 
     cookie: { secure: false },
 
-
   })
 
 );
@@ -92,7 +89,7 @@ app.use("/api/v1", require("./app/api/v1/routes")(express));
 
 // Starting Server
 
-const port = process.env.PORT || config.port;
+const port = process.env.PORT || 5000;
 
 
 app.listen(port,()=>{

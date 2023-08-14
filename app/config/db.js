@@ -1,12 +1,11 @@
 "use strict";
 
-const config = require("./config").get(process.env.NODE_ENV);
 const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db.url, {
-  user: config.db.user,
-  pass: config.db.password,
+mongoose.connect(process.env.DB_URL, {
+  user: process.env.DB_USER,
+  pass: process.env.DB_PASS,
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });

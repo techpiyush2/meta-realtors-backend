@@ -1,12 +1,12 @@
 "use strict";
 
 module.exports = (app) => {
-  const config = require("./config").get(process.env.NODE_ENV);
+  
 
   const mongoose = require("mongoose");
 
   // ***************  Starting Node Server  ***********************
-  const port = process.env.PORT || config.port;
+  const port = process.env.PORT || 5000 ;
   const server = app.listen(port, () => {
     console.log(`listening to the port ${port} ...`);
   });
@@ -21,9 +21,9 @@ module.exports = (app) => {
   });
 
   // ***************  Database Connection  *************************
-  const DB = config.db.DATABASE_STRING.replace(
+  const DB = process.env.DB_USER.replace(
     "<PASSWORD>",
-    config.db.DATABASE_PASSWORD
+    process.env.DB_PASS
   );
 
   // mongoose.Promise = global.Promise
