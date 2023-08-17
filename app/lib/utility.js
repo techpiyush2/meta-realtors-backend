@@ -182,7 +182,7 @@ utility.staffValidation = function (body) {
 }
 
 utility.uuid = {
-  uuid: require('node-uuid'),
+  uuid: require('uuid'),
   v1: function () {
     return this.uuid.apply(this, arguments) //.v1()
   },
