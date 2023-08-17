@@ -7,7 +7,6 @@ const { Response, internalError } = require("../../../../../lib/response"),
   constants = require("../../../../../lib/constants"),
   softDelete = require("../../factory/softDelete"),
   fs = require("fs"),
-  sharp = require("sharp"),
   Blog = require("../models/blog_model");
 const uuid = require("uuid");
 

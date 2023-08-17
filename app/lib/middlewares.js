@@ -1,10 +1,6 @@
 const fs = require("fs"),
   uuid = require("uuid"),
-  sharp = require("sharp"),
-  utility = require("./utility"),
-  query = require("./common_query"),
   { Response, internalError } = require("./../lib/response"),
-  catchAsync = require("./catchAsync"),
   constants = require("./../lib/constants");
 
 /********************************************************************************
