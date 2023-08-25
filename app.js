@@ -15,8 +15,6 @@ global.__rootRequire = function (relpath) {
 
 };
 
-
-
 // process.env.NODE_ENV = process.env.NODE_ENV || "prod"; //local server
 
 require('dotenv').config()
@@ -91,7 +89,7 @@ app.use("/api/v1", require("./app/api/v1/routes")(express));
 
 // Starting Server
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 
 app.listen(port,()=>{
