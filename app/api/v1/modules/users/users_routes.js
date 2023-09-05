@@ -16,5 +16,3 @@ module.exports = function (router) {
   router.post("/users/changeStatus", users.changeStatus);
   return router;
 };
-
-
