@@ -31,9 +31,8 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 const _dirname = path.dirname("")
-const buildPath = path.join(_dirname  , "../client/build");
+const buildPath = path.join(_dirname  , "../meta-realtors-frontend/dist");
 
 app.use(express.static(buildPath))
 
