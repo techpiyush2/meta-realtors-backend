@@ -33,19 +33,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('dist'))
 
-app.get('/*',(req,res)=>{
-  
-  res.sendFile(path.join(__dirname + '/dist/index.html'),
-    function(err){
-      if(err){
-        res.status(500).send(err)
-      }
-    }
-  )
+const _dirname = path.dirname("")
+const buildPath = path.join(_dirname  , "../client/build");
+
+app.use(express.static(buildPath))
+
+app.get("/*", function(req, res){
+
+    res.sendFile(
+        path.join(__dirname, "../meta-realtors-frontend/dist/index.html"),
+        function (err) {
+          if (err) {
+            res.status(500).send(err);
+          }
+        }
+      );
+
 })
-
-app.use("/upload", express.static(path.join(__dirname, "./upload")));
-
 // All api requests
 
 app.use(function (req, res, next) {
