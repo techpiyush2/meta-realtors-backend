@@ -1,8 +1,8 @@
 "use strict";
 
+const { log } = require("console");
 const path = require("path"),
   cors = require("cors"),
-  morgan = require("morgan"),
   express = require("express"),
   bodyParser = require("body-parser"),
   fileUpload = require("express-fileupload");
@@ -31,9 +31,22 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 app.use(express.static('dist'))
 
+app.get('/*',(req,res)=>{
+  
+  var filePath = "dist/index.html"
+  var resolvedPath = path.resolve(filePath);
+  console.log(resolvedPath);
+  
+  res.sendFile(resolvedPath,
+    function(err){
+      if(err){
+        res.status(500).send(err)
+      }
+    }
+  )
+})
 
 app.use("/upload", express.static(path.join(__dirname, "./upload")));
 
