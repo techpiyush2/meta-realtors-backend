@@ -31,7 +31,6 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static('dist'))
 
 const _dirname = path.dirname("")
 const buildPath = path.join(_dirname  , "../client/build");
