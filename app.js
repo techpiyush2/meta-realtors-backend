@@ -35,11 +35,7 @@ app.use(express.static('dist'))
 
 app.get('/*',(req,res)=>{
   
-  var filePath = "dist/index.html"
-  var resolvedPath = path.resolve(filePath);
-  console.log(resolvedPath);
-  
-  res.sendFile(resolvedPath,
+  res.sendFile(path.join(__dirname + '/dist/index.html'),
     function(err){
       if(err){
         res.status(500).send(err)
