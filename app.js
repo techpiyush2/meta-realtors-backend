@@ -31,22 +31,20 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const _dirname = path.dirname("")
-const buildPath = path.join(_dirname  , "dist");
+// app.use( express.static(path.resolve(__dirname, 'dist', 'static'),
+// {extensions: ["js"]}))
 
-app.use(express.static(buildPath))
+// app.get("/*", function(req, res){
+//     res.sendFile(
+//         path.join(__dirname, "/dist/index.html"),
+//         function (err) {
+//           if (err) {
+//             res.status(500).send(err);
+//           }
+//         }
+//       );
+// })
 
-app.get("/*", function(req, res){
-
-    res.sendFile(
-        path.join(__dirname, "../meta-realtors-backend/dist/index.html"),
-        function (err) {
-          if (err) {
-            res.status(500).send(err);
-          }
-        }
-      );
-})
 // All api requests
 
 app.use(function (req, res, next) {
