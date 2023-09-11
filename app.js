@@ -32,7 +32,8 @@ app.use(express.json({ limit: "10kb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const _dirname = path.dirname("")
-const buildPath = path.join(_dirname  , "../meta-realtors-frontend/dist");
+// const buildPath = path.join(_dirname  , "../meta-realtors-frontend/dist");
+const buildPath = 'dist';
 
 app.use(express.static(buildPath))
 
@@ -46,7 +47,6 @@ app.get("/*", function(req, res){
           }
         }
       );
-
 })
 // All api requests
 
