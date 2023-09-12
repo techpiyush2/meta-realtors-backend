@@ -31,21 +31,17 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use( express.static(path.resolve(__dirname, 'dist', 'static'),
-// {extensions: ["js"]}))
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  // All the javascript and css files will be read and served from this folder
+  app.use(express.static("client/build"));
 
-// app.get("/*", function(req, res){
-//     res.sendFile(
-//         path.join(__dirname, "/dist/index.html"),
-//         function (err) {
-//           if (err) {
-//             res.status(500).send(err);
-//           }
-//         }
-//       );
-// })
+  // index.html for all page routes  html or routing and naviagtion
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../meta-realtors-frontend", "build", "index.html"));
+  });
+}
 
-// All api requests
 
 app.use(function (req, res, next) {
 
@@ -94,7 +90,7 @@ app.use("/api/v1", require("./app/api/v1/routes")(express));
 
 // Starting Server
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 
 app.listen(port,()=>{
