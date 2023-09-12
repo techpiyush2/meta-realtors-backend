@@ -31,6 +31,15 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+app.use('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT, GET,POST");
+  next();
+ });
+
+
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   // All the javascript and css files will be read and served from this folder
@@ -41,6 +50,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "../meta-realtors-frontend", "build", "index.html"));
   });
 }
+
+
+
 
 
 app.use(function (req, res, next) {
@@ -63,6 +75,8 @@ app.use(function (req, res, next) {
   }
 
 });
+
+
 
 app.use(
 
