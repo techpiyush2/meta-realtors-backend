@@ -1,8 +1,8 @@
 "use strict";
 
-const { log } = require("console");
 const path = require("path"),
   cors = require("cors"),
+  morgan = require("morgan"),
   express = require("express"),
   bodyParser = require("body-parser"),
   fileUpload = require("express-fileupload");
@@ -32,30 +32,21 @@ app.use(express.json({ limit: "10kb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-app.use('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "PUT, GET,POST");
-  next();
- });
+app.use(express.static('dist'))
+
+app.get('/sitemap.xml', (req, res) => {
+  const filePath = path.join(__dirname, 'dist/assets/sitemap.xml');
+  res.sendFile(filePath);
+});
 
 
-if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  // All the javascript and css files will be read and served from this folder
-  app.use(express.static("client/build"));
+app.use("/upload", express.static(path.join(__dirname, "./upload")));
 
-  // index.html for all page routes  html or routing and naviagtion
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../meta-realtors-frontend", "build", "index.html"));
-  });
-}
-
-
-
-
+// All api requests
 
 app.use(function (req, res, next) {
+
+
 
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
 
@@ -75,8 +66,6 @@ app.use(function (req, res, next) {
   }
 
 });
-
-
 
 app.use(
 
@@ -104,7 +93,7 @@ app.use("/api/v1", require("./app/api/v1/routes")(express));
 
 // Starting Server
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 
 app.listen(port,()=>{

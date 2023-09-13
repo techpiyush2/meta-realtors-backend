@@ -76,7 +76,7 @@ exports.propertyList = catchAsync(async (req, res) => {
     condition.type = { $in: req.body.type };
   }
   
-  if (req.body.isDeleted = 'true')
+  if (req.body.isDeleted)
     condition.isDeleted = req.body.isDeleted == "true" ? true : false;
   else condition.isDeleted = false;
 
