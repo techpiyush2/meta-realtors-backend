@@ -13,7 +13,7 @@ const usersSchema = new mongoose.Schema(
     // country: { type: String, default: null },
     image: { type: String, default: null },
     // address: { type: String, default: null },
-    // userName: { type: String, default: null },
+    role: { type: String, default: 'ADMIN' },
     password: { type: String, default: null },
     resetkey : { type:String ,default : null },
     email: { type: String, default: null },
