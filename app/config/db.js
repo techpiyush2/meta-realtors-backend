@@ -3,8 +3,7 @@
 const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DB_URL, {
-  user: process.env.DB_USER,
+mongoose.connect('mongodb+srv://META:REALTOTS@cluster0.vtkshw9.mongodb.net/?retryWrites=true&w=majority', {
   pass: process.env.DB_PASS,
   useUnifiedTopology: true,
   useNewUrlParser: true,
