@@ -244,8 +244,6 @@ exports.uploadImage = async (req, res, next) => {
 
 };
 
-
-
 exports.changeStatus = toggleStatus(Blog);
 
 exports.deleteBlog = softDelete(Blog);
