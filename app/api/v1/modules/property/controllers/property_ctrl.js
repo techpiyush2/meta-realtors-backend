@@ -8,7 +8,8 @@ const { Response, internalError } = require("../../../../../lib/response"),
   softDelete = require("../../factory/softDelete"),
   Property = require("../models/property_model"),
   fs = require("fs"),
-  uuid = require("uuid");
+  uuid = require("uuid"),
+  moment = require('moment');
 
 
 exports.addProperty = catchAsync(async (req, res) => {
@@ -126,8 +127,9 @@ console.log('sort->', sortObject)
               parkOrGarden:"$parkOrGarden",
               Features: "$Features" ,
               address: "$address",
-              contactNo: "$contactNo" ,
+              contactNo: "$contactNo",
               ownerName: "$ownerName",
+              date : "$createdAt"
             },
           },
           { $sort: sortObject },
