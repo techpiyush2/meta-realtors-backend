@@ -124,12 +124,12 @@ console.log('sort->', sortObject)
               size: "$size",
               price:  "$price",
               parking: "$parking",
+              date : "$createdAt",
               parkOrGarden:"$parkOrGarden",
               Features: "$Features" ,
               address: "$address",
               contactNo: "$contactNo",
               ownerName: "$ownerName",
-              date : "$createdAt"
             },
           },
           { $sort: sortObject },
@@ -294,7 +294,7 @@ exports.uploadImage = async (req, res, next) => {
     if (mimetype == "image/png" || mimetype == "image/jpeg") {
       const UPLOADIMAGE = constants.directoryPath.PROPERTY;
       const db_path = randomName + "_" + imgOriginalName;
-      const uploadLocation = UPLOADIMAGE + randomName + "_" + imgOriginalName;
+      const uploadLocation = UPLOADIMAGE + randomName ;
   
         await fileToBeSend.push(db_path)
         await fs.writeFile(uploadLocation, imageBuffer, function (imgErr) {

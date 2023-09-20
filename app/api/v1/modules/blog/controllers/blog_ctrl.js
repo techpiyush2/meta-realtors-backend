@@ -211,7 +211,7 @@ exports.uploadImage = async (req, res, next) => {
   if (mimetype == "image/png" || mimetype == "image/jpeg") {
     const UPLOADIMAGE = constants.directoryPath.BLOG;
     const db_path = randomName + "_" + imgOriginalName;
-    const uploadLocation = UPLOADIMAGE + randomName + "_" + imgOriginalName;
+    const uploadLocation = UPLOADIMAGE + randomName ;
 
 
     await fs.writeFile(uploadLocation, imageBuffer, function (imgerr) {

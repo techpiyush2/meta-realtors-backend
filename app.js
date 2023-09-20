@@ -32,17 +32,11 @@ app.use(express.json({ limit: "10kb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-app.use(express.static('dist'))
-
-app.get('/sitemap.xml', (req, res) => {
-  const filePath = path.join(__dirname, 'dist/assets/sitemap.xml');
-  res.sendFile(filePath);
-});
+// app.use(express.static('dist'))
 
 
 app.use("/upload", express.static(path.join(__dirname, "./upload")));
 
-// All api requests
 
 app.use(function (req, res, next) {
 
@@ -83,7 +77,6 @@ app.use(
 
 );
 
-// Including database file
 
 require("./app/config/db");
 
