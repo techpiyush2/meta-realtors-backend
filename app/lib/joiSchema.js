@@ -79,7 +79,7 @@ exports.propertyValidation = Joi.object({
     .messages({ "any.required": `${constants.propertyMsg.imgReq}` }),
     type:  Joi.string()
     .required()
-    .valid("PLOT", "FLAT", "VILLA", "KOTHI")
+    .valid("PLOT", "FLAT", "VILLA", "KOTHI","COMMERCIAL")
     .messages({ "any.required": `${constants.propertyMsg.type}` }),
     bedrooms: Joi.number()
     .required()

@@ -80,7 +80,7 @@ exports.propertyList = catchAsync(async (req, res) => {
     condition.isDeleted = req.body.isDeleted == "true" ? true : false;
   else condition.isDeleted = false;
 
-  let sortObject = {};
+  let sortObject = {id : -1};
   if (req.body.sortValue && req.body.sortOrder) {
     sortObject[req.body.sortValue] = req.body.sortOrder;
   } else {

@@ -10,7 +10,7 @@ const propertySchema = new mongoose.Schema(
     createdby_id: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
     description: { type: String, default: null },
     images: { type: Array, default: [] },
-    type: { type: String, enum: ["PLOT", "FLAT", "VILLA", "KOTHI"] },
+    type: { type: String, enum: ["PLOT", "FLAT", "VILLA", "KOTHI","COMMERCIAL"] },
     bedrooms: { type: Number, default: null },
     bathrooms: { type: Number, default: null },
     size: { type: Number, default: null },
