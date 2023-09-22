@@ -82,6 +82,7 @@ exports.queryList = catchAsync(async (req, res) => {
         aggregatedData: [
           {
             $project: {
+              id : "$_id",
               name: 1,
               email: 1,
               mobileNo: 1,
