@@ -32,7 +32,7 @@ exports.blogCategoryValidation = Joi.object({
 
 //Contact us
 exports.contactusValidation = Joi.object({
-  name: Joi.string()
+  name: Joi.string() 
     .required()
     .messages({ "any.required": `${constants.contactUsMsg.firstNameReq}` }),
   email: Joi.string()
