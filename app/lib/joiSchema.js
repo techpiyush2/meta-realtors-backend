@@ -32,17 +32,14 @@ exports.blogCategoryValidation = Joi.object({
 
 //Contact us
 exports.contactusValidation = Joi.object({
-  firstName: Joi.string()
+  name: Joi.string()
     .required()
     .messages({ "any.required": `${constants.contactUsMsg.firstNameReq}` }),
-  lastName: Joi.string()
-    .required()
-    .messages({ "any.required": `${constants.contactUsMsg.lastNameReq}` }),
   email: Joi.string()
     .email()
     .required()
     .messages({ "any.required": `${constants.contactUsMsg.emailReq}` }),
-  contact: Joi.string()
+  mobileNo: Joi.number()
     .required()
     .messages({ "any.required": `${constants.contactUsMsg.contactReq}` }),
   message: Joi.string()

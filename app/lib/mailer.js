@@ -13,7 +13,7 @@ exports.contactUsEmail = (mailOptions, printContents) => {
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Zimo.one</title>
+      <title>Meta Realtors</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"  crossorigin="anonymous" referrerpolicy="no-referrer" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@ exports.contactUsEmail = (mailOptions, printContents) => {
           <center>
               <div style="width: 480px; height:auto; box-shadow: 1px 1px 20px 2px rgb(224, 223, 223); border-radius: 10px;">
                   <div style="  background-color: #FBB84D;  padding: 15px 0px; border-radius: 10px 10px 0px 0px; ">
-                      <img src= "https://www.linkpicture.com/q/logo2_14.png" height="60px" width="100px"   alt="">
+                      <img src= "https://metarealtors.in/static/media/navlogo.b853379945b2413aa057.jpeg" height="60px" width="100px"   alt="">
                   </div>
                   <div style="text-align: start;  padding: 0px 40px;">
                       <div style="padding-top: 25px; color: rgb(73, 72, 72);">
@@ -32,13 +32,13 @@ exports.contactUsEmail = (mailOptions, printContents) => {
                       </div>
                       <div style="border: 1px solid gray; border-radius: 10px;">
                           <div style="padding: 0px 16px;">
-                              <h1 style="font-size: 22px; font-weight: bolder; color: rgb(73, 72, 72);">I am ${printContents.firstName + " " + printContents.lastName}</h1>
+                              <h1 style="font-size: 22px; font-weight: bolder; color: rgb(73, 72, 72);">I am ${printContents.name}</h1>
                           <hr>
                           <p for="" style="font-size: 16px; font-style: normal; font-weight: 600; color: rgb(73, 72, 72);"> Email Id : </p>
                           <p>${printContents.email}</p>
     
                           <p for="" style="font-size: 16px; font-style: normal; font-weight: 600; color: rgb(73, 72, 72);"> Contact Number : </p>
-                          <p>${printContents.contact}</p>
+                          <p>${printContents.mobileNo}</p>
                           
                           <p for="" style="font-size: 16px; font-style: normal; font-weight: 600; color: rgb(73, 72, 72);"> Message :</p>
                           <p>${printContents.message}</p>
@@ -53,16 +53,9 @@ exports.contactUsEmail = (mailOptions, printContents) => {
                   </div>
                   <hr style="margin: 35px  0px 20px 0px;">
                  <div style="text-align:center"
-                  <div style="font-size: 30px; padding:0px 0px;">
-                     <a style="text-decoration : none" href= "https://www.facebook.com/zimoinfotech/"> <img src= "https://www.linkpicture.com/q/fb.svg" style="width : 40px; margin: 0px 10px;"></img></a>  
-  
-                      <a href= "https://www.instagram.com/zimo.one/" style="text-decoration : none"><img src ="https://www.linkpicture.com/q/ig.svg" style="width : 40px; margin: 0px 10px;"></a>
-  
-                     <a style="text-decoration : none" href= "https://twitter.com/zimoinfotech"><img src = "https://www.linkpicture.com/q/twitter_3.svg" style="width : 40px; margin: 0px 10px;"></a>
-  
-                  </div>
+
                       <div style="padding: 0px  0px 10px 0px; text-align: center; ">
-                              <p>© 2022 Zimo.one All Right Reserved</p></div>
+                              <p>© 2023 Meta Realtors All Right Reserved</p></div>
                      </div>
                   </div>
               </div>
@@ -455,30 +448,37 @@ const sendEmail = async (mailOptions) => {
   }
 
   // Creating transporter
+  let transporter = smtpProtocol = mailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "metarealtors3@gmail.com",
+        pass: "Realtors56789#"
+    }
+});
 
-  const transporter = nodemailer.createTransport(
-    smtpTransport({
-      service: config.smtp.service,
+//   const transporter = nodemailer.createTransport(
+//     smtpTransport({
+//       service: config.smtp.service,
 
-      port: 587,
+//       port: 587,
 
-      secure: false,
+//       secure: false,
 
-      requireTLS: true,
+//       requireTLS: true,
 
-      host: config.smtp.host,
+//       host: config.smtp.host,
 
-      auth: {
-        user: config.smtp.username,
+//       auth: {
+//         user: 'metarealtors3@gmail.com',
 
-        pass: config.smtp.password,
-      },
+//         pass: 'SPARJ50VHXEOKN12',
+//       },
 
-      tls: {
-        ciphers: "SSLv3",
-      },
-    })
-  );
+//       tls: {
+//         ciphers: "SSLv3",
+//       },
+//     })
+//   );
 
   const transporterRes = await transporter.sendMail(mailOptions);
 

@@ -181,7 +181,7 @@ exports.categoryMsg = {
 exports.contactUsMsg = {
   idReq: "Please enter contact us id",
   addSuccess: "Query Raised",
-  firstNameReq: "First Name is Required",
+  firstNameReq: "Name is Required",
   lastNameReq: "Last Name is Required",
   emailReq: "Email is Required",
   contactReq: "Mobile Number is Required",

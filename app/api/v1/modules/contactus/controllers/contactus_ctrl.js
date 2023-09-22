@@ -14,26 +14,15 @@ const { Response, internalError } = require("../../../../../lib/response"),
 
 exports.addContactUs = catchAsync(async (req, res) => {
   let insertObj = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    name: req.body.name,
     email: req.body.email,
-    contact: req.body.contact,
+    mobileNo: req.body.mobileNo,
     message: req.body.message,
   };
 
   await contactusValidation.validateAsync(insertObj);
   // const { message, email_ID : email, number} = req.body;
-  await Contactus.create(insertObj);
-
-  const mailOptions = {
-    // from: req.body.email,
-    to: ["piyush.zimo@outlook.com"],
-    // bcc: "jitendra@zimo.one,sahota@theinkmail.com",
-    // bcc: "piyush.zimo@gmail.com",
-    subject: constants.mailSubject.contactUs,
-  };
-
-  const mailResponse = await mailer.contactUsEmail(mailOptions, insertObj);
+ let mailResponse =  await Contactus.create(insertObj);
 
   if (!mailResponse)     
     return res.json(
@@ -93,13 +82,11 @@ exports.queryList = catchAsync(async (req, res) => {
         aggregatedData: [
           {
             $project: {
-              firstName: 1,
-              lastName: 1,
+              name: 1,
               email: 1,
-              contact: 1,
+              mobileNo: 1,
               message: 1,
               createdAt: 1,
-              isActive : 1,
               isDeleted : 1
             },
           },
