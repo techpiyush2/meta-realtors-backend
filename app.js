@@ -32,7 +32,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-// app.use(express.static('dist'))
+app.use(express.static('dist'))
 
 
 app.use("/upload", express.static(path.join(__dirname, "./upload")));
