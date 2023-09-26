@@ -286,7 +286,7 @@ exports.uploadImage = async (req, res, next) => {
       imageBuffer = element.data,
       mimetype = element.mimetype,
       imgOriginalName = element.name;
-  
+     let  newmgOriginal = imgOriginalName.split(' ').join("");
     if (size >= 10000000) {
       return res.json(
         Response(constants.statusCode.unauth, constants.messages.sizeExceeded)
@@ -295,7 +295,7 @@ exports.uploadImage = async (req, res, next) => {
   
     if (mimetype == "image/png" || mimetype == "image/jpeg") {
       const UPLOADIMAGE = constants.directoryPath.PROPERTY;
-      const db_path = randomName + "_" + imgOriginalName;
+      const db_path = randomName + "_" + newmgOriginal;
       const uploadLocation = UPLOADIMAGE + randomName;
   
         await fileToBeSend.push(db_path)
