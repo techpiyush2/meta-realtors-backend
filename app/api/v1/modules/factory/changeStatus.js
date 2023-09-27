@@ -1,3 +1,4 @@
+const { log } = require("async");
 const catchAsync = require("../../../../lib/catchAsync"),
   { Response, internalError } = require("../../../../lib/response"),
   constants = require("../../../../lib/constants"),
@@ -5,6 +6,9 @@ const catchAsync = require("../../../../lib/catchAsync"),
 
 module.exports = (Model) =>
   catchAsync(async (req, res) => {
+    
+    console.log(req.body)
+    
     if (!req.body.id)
       return res.json(
         Response(constants.statusCode.unauth, constants.messages._idReq)

@@ -28,6 +28,7 @@ exports.addProperty = catchAsync(async (req, res) => {
     address: req.body.address,
     contactNo:  req.body.contactNo,
     ownerName:  req.body.ownerName,
+    isActive:  req.body.isActive,
   };
 
   const propertyExist = await Property.findOne({ title: req.body.title });
@@ -68,7 +69,7 @@ exports.propertyList = catchAsync(async (req, res) => {
   const skip = count * (req.body.page - 1);
 
   let condition = {};
-   console.log(req.body);
+   
   if (req.body.isActive != "" && req.body.isActive != undefined) {
     condition.isActive = req.body.isActive == "true" ? true : false;
   }
@@ -80,6 +81,10 @@ exports.propertyList = catchAsync(async (req, res) => {
   if (req.body.isDeleted)
     condition.isDeleted = req.body.isDeleted == "true" ? true : false;
   else condition.isDeleted = false;
+
+  if(req.body.type){
+    condition.type = req.body.type;
+  }
 
   let sortObject = {id : -1};
   if (req.body.sortValue && req.body.sortOrder) {

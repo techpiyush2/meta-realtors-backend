@@ -30,3 +30,4 @@ const propertySchema = new mongoose.Schema(
 
 const Technology = mongoose.model("property", propertySchema);
 module.exports = Technology;
+  
