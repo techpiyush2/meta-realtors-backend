@@ -273,21 +273,25 @@ exports.uploadImage = async (req, res, next) => {
     return res.json(Response(constants.statusCode.unauth, constants.messages.uploadImageReq));
   }
     
-
+  const randomStr = uuid.v4(),
+    currentDate = Date.now(),
+    randomName = randomStr + "-" + currentDate;
 
     let fileToBeSend = []
     
+  
+    
+    if(req.files.file.length === 1){
+    return res.json(Response(constants.statusCode.unauth, "Please select at least two Images"));      
+    }
+    
     req.files.file.forEach(async(element) => {
-      const randomStr = uuid.v4(),
-      currentDate = Date.now(),
-      randomName = randomStr + "-" + currentDate;
-      
       const size = element.size,
       imageBuffer = element.data,
       mimetype = element.mimetype,
       imgOriginalName = element.name;
-     let  newmgOriginal = imgOriginalName.split(' ').join("");
-    if (size >= 10000000) {
+  
+    if (size >= 5000000) {
       return res.json(
         Response(constants.statusCode.unauth, constants.messages.sizeExceeded)
       );
@@ -295,8 +299,8 @@ exports.uploadImage = async (req, res, next) => {
   
     if (mimetype == "image/png" || mimetype == "image/jpeg") {
       const UPLOADIMAGE = constants.directoryPath.PROPERTY;
-      const db_path = randomName + "_" + newmgOriginal;
-      const uploadLocation = UPLOADIMAGE + randomName;
+      const db_path = randomName + "_" + imgOriginalName;
+      const uploadLocation = UPLOADIMAGE + randomName + "_" + imgOriginalName;
   
         await fileToBeSend.push(db_path)
         await fs.writeFile(uploadLocation, imageBuffer, function (imgErr) {
@@ -326,6 +330,7 @@ exports.uploadImage = async (req, res, next) => {
     );
     
 };
+
 
 exports.changeStatus = toggleStatus(Property);
 
