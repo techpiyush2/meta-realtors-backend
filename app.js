@@ -21,7 +21,10 @@ require('dotenv').config()
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+}));
 
 app.use(fileUpload());
 
