@@ -10,7 +10,7 @@ const { Response, internalError } = require("../../../../../lib/response"),
   fs = require("fs"),
   uuid = require("uuid"),
   moment = require('moment');
-  const requestIP = require('request-ip');
+
 
 exports.addProperty = catchAsync(async (req, res) => {
   let insertObj = {
