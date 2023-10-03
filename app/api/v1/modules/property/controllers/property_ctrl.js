@@ -10,7 +10,7 @@ const { Response, internalError } = require("../../../../../lib/response"),
   fs = require("fs"),
   uuid = require("uuid"),
   moment = require('moment');
-
+  const requestIP = require('request-ip');
 
 exports.addProperty = catchAsync(async (req, res) => {
   let insertObj = {
@@ -68,7 +68,9 @@ exports.propertyList = catchAsync(async (req, res) => {
     : constants.settings.defaultPageNo;
   const skip = count * (req.body.page - 1);
 
-  let condition = {};
+  let condition = {
+    isDeleted : false
+  };
    
 
   
@@ -76,14 +78,8 @@ exports.propertyList = catchAsync(async (req, res) => {
     condition.type = { $in: req.body.type };
   }
   
-  if (req.body.isDeleted)
-    condition.isDeleted = req.body.isDeleted == "true" ? true : false;
-  else condition.isDeleted = false;
 
-  if(req.body.type){
-    condition.type = req.body.type;
-  }
-
+ 
   if(req.body.isActive){
     condition.isActive = req.body.isActive;
   }
@@ -108,7 +104,7 @@ exports.propertyList = catchAsync(async (req, res) => {
     ];
   }
 
-console.log('sort->', sortObject)
+console.log('sort->', condition)
 
     // return
   const data = await Property.aggregate([
