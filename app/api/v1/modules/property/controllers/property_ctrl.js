@@ -70,9 +70,7 @@ exports.propertyList = catchAsync(async (req, res) => {
 
   let condition = {};
    
-  if (req.body.isActive != "" && req.body.isActive != undefined) {
-    condition.isActive = req.body.isActive == "true" ? true : false;
-  }
+
   
   if(req.body.type){
     condition.type = { $in: req.body.type };
@@ -86,6 +84,11 @@ exports.propertyList = catchAsync(async (req, res) => {
     condition.type = req.body.type;
   }
 
+  if(req.body.isActive){
+    condition.isActive = req.body.isActive;
+  }
+
+  
   let sortObject = {id : -1};
   if (req.body.sortValue && req.body.sortOrder) {
     sortObject[req.body.sortValue] = req.body.sortOrder;
