@@ -107,6 +107,9 @@ exports.propertyValidation = Joi.object({
     .messages({ "any.required": `${constants.propertyMsg.contactNo}` }),
     ownerName: Joi.string()
     .required()
+    .messages({ "any.required": `${constants.propertyMsg.ownerName}` }), 
+    isActive: Joi.boolean()
+    .required()
     .messages({ "any.required": `${constants.propertyMsg.ownerName}` }),
 });
 
