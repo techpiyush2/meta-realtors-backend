@@ -13,6 +13,7 @@ const { Response, internalError } = require("../../../../../lib/response"),
 
 
 exports.addProperty = catchAsync(async (req, res) => {
+ 
   let insertObj = {
     title: req.body.title,
     description:  req.body.description,
@@ -28,16 +29,16 @@ exports.addProperty = catchAsync(async (req, res) => {
     address: req.body.address,
     contactNo:  req.body.contactNo,
     ownerName:  req.body.ownerName,
-    isActive:  req.body.isActive,
+   
   };
-
+  console.log(insertObj)
   const propertyExist = await Property.findOne({ title: req.body.title });
 
   if (propertyExist)
     return res.json(
       Response(constants.statusCode.unauth, constants.propertyMsg.exist)
     );
-
+    
   await propertyValidation.validateAsync(insertObj);
 
   const { createdby_id } = req.body;
